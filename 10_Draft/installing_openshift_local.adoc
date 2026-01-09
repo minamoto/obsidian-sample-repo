@@ -1,0 +1,31 @@
+= 学習環境としてOpenShift Localをインストールする
+:author: Fusayuki Minamoto
+:revnumber: 1.0
+:revdate: 2024-11-16
+:doctype: book
+:encoding: utf-8
+:lang: ja
+:toc: left
+:toclevels: 2
+:sectnums:
+:chapter-label:
+:chapter-signifier:
+:imagesdir: .
+:toc-title: 目次
+:note-caption: 注記
+:tip-caption: ヒント
+:important-caption: 重要
+:caution-caption: 注意
+:warning-caption: 警告
+
+// 本文はここから
+
+include::./chapter01.adoc[]
+include::./chapter02.adoc[]
+include::./chapter03.adoc[]
+include::./chapter04.adoc[]
+include::./chapter05.adoc[]
+include::./chapter06.adoc[]
+include::./chapter07.adoc[]
+include::./chapter08.adoc[]
+include::./chapter09.adoc[]

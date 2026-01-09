@@ -1,0 +1,155 @@
+== crcコマンドの使い方
+
+*crcコマンド一覧* +
+OpenShift Localの操作は、crcコマンドを使います。 *crc help* コマンドによってcrcコマンドの一覧を表示します。
+
+[source,bash]
+----
+$ crc help
+
+Available Commands:
+bundle      Manage CRC bundles
+cleanup     Undo config changes
+completion  Generate the autocompletion script for the specified shell
+config      Modify crc configuration
+console     Open the OpenShift Web Console in the default browser
+delete      Delete the instance
+help        Help about any command
+ip          Get IP address of the running OpenShift cluster
+oc-env      Add the 'oc' executable to PATH
+podman-env  Setup podman environment
+setup       Set up prerequisites for using CRC
+start       Start the instance
+status      Display status of the OpenShift cluster
+stop        Stop the instance
+version     Print version information
+----
+
+=== インスタンスの起動
+
+*crc start* コマンドでOpenShift Localの仮想マシンを起動します。crc
+startを実行すると、 *初回だけPull Secretを入力するように促されます*
+ので、インストールのステップ(1)でダウンロード済みのpull-secret.txtの内容を貼り付けます。
+
+[source,bash]
+----
+$ crc start
+INFO Using bundle path /home/student/.crc/cache/crc_libvirt_4.17.1_amd64.crcbundle
+<略>
+CRC requires a pull secret to download content from Red Hat.
+You can copy it from the Pull Secret section of https://console.redhat.com/openshift/create/local.
+? Please enter the pull secret ****************************************************************
+INFO Creating CRC VM for OpenShift 4.17.1...
+----
+
+crc startコマンドの最後で、以下のように、コンソールのURLとログイン情報が表示されます。これでOpenShiftを利用できる準備が整いました。
+
+[source,bash]
+----
+Started the OpenShift cluster. +
+The server is accessible via web console at: +
+https://console-openshift-console.apps-crc.testing/[https://console-openshift-console.apps-crc.testing]
+
+Log in as administrator: +
+Username: kubeadmin +
+Password: XXXXXXXXX
+
+Log in as user: +
+Username: developer +
+Password: developer
+
+Use the '`oc`' command line interface: +
+$ eval latexmath:[(crc oc-env)] oc login -u developer
+https://api.crc.testing:6443/[https://api.crc.testing:6443]
+----
+
+OpenShift Localを起動すると、仮想マシンマネージャー上でcrcという名前の仮想マシンが起動していることが確認できます。
+
+.crc仮想マシン (起動)
+image::./images/chap5_crc_start.png[]
+
+*crc status* コマンドによって、OpenShift Localのバージョン、メモリ、ディスクの使用状況を調べることができます。
+
+[source,bash]
+----
+$ crc status
+CRC VM:          Running
+OpenShift:       Running (v4.17.1)
+RAM Usage:       6.218GB of 10.95GB
+Disk Usage:      22.01GB of 32.68GB (Inside the CRC VM)
+Cache Usage:     25.24GB
+Cache Directory: /home/student/.crc/cache
+----
+
+=== インスタンスの停止
+
+*crc stop* コマンドでOpenShift Localの仮想マシンを停止します。コマンド実行後、仮想マシンマネージャー上でcrcという名前の仮想マシンが停止していることが確認できます。
+
+[source,bash]
+----
+$ crc stop
+INFO Stopping kubelet and all containers...       
+INFO Stopping the instance, this may take a few minutes... 
+Stopped the instance
+----
+
+.crc仮想マシン (停止)
+image::./images/chap5_crc_stop.png[]
+
+=== インスタンスの削除
+
+OpenShiftの仮想マシンを削除するには *crc delete* を使います。
+
+[source,bash]
+----
+$ crc delete
+Do you want to delete the instance? [y/N]: y
+Deleted the instance
+----
+
+OpenShift Localを完全にアンインストールするコマンドはありません。 ~/.crc以下には、以下のようにキャッシュされているファイルが存在しています。これらのファイルを手で削除する必要があります。
+
+[source,bash]
+----
+$ du -h ~/.crc
+8.0K    /home/student/.crc/bin/podman
+4.0K    /home/student/.crc/bin/oc
+17M    /home/student/.crc/bin
+19G    /home/student/.crc/cache/crc_libvirt_4.17.1_amd64
+24G    /home/student/.crc/cache
+24G    /home/student/.crc
+----
+
+=== インスタンスの設定
+
+OpenShift Localの初期設定では、CPUは4、メモリは10.5G使うように設定されていますが、環境に合わせてこれらを設定変更することができます。
+
+*crc config* コマンドで現在のCPU、メモリの設定値の確認ができます。
+
+[source,bash]
+----
+crc config get cpus
+Configuration property 'cpus' is not set. Default value '4' is used
+
+$ crc config get memory
+Configuration property 'memory' is not set. Default value '10752' is used
+----
+
+*crc config set* コマンドで現在の設定値の変更ができます。 *crc config view* コマンドで、現在の設定値の確認ができます。設定値の変更は次回の起動から反映されます。
+
+[source,bash]
+----
+$ crc config set cpus 6
+Changes to configuration property 'cpus' are only applied when the CRC instance is started.
+If you already have a running CRC instance, then for this configuration change to take effect, stop the CRC instance with 'crc stop' and restart it with 'crc start'.
+
+$ crc config set memory 21504
+Changes to configuration property 'memory' are only applied when the CRC instance is started.
+If you already have a running CRC instance, then for this configuration change to take effect, stop the CRC instance with 'crc stop' and restart it with 'crc start'.
+
+$ crc config view
+- consent-telemetry                     : yes
+- cpus                                  : 6
+- memory                                : 21504
+----
+

@@ -1,0 +1,92 @@
+== OpenShift Localのインストール
+
+OpenShift Localのインストールはとても簡単です。インストールのための最小システム要件の詳細は、以下のドキュメントを参照してください。
+
+https://docs.redhat.com/ja/documentation/red_hat_openshift_local/2.43/html/getting_started_guide/installing[*第2章
+Red Hat OpenShift Local のインストール ++|++ Red Hat Product
+Documentation*]
+
+=== 最小システム要件
+
+CPUは、AMD64、インテル64、Appleシリコンをサポートします。OpenShift Localを動作させるためのハードウェアリソースは以下になります。
+
+* 物理 CPU コア 4 個
+* 空きメモリー 10.5 GB
+* ストレージ領域の 35 GB
+
+OSは、Windows、MacOS、Linuxをサポートします。ただし、Windowsの場合は、
+*Microsoft Windows Home Edition ではインストールできません*。
+ノートPC上への導入を検討されている方は注意してください。
+
+=== 筆者のPC環境
+
+参考までに、この記事を書くにあたり使用した筆者のノートPCのスペックは以下になります。
+
+* Fedora Linux 41 (Workstation Edition)
+* Lenovo ThinkPad X1 Carbon Gen 11
+* Intel Core i7-1370P
+* メモリ64GB
+* ディスク1TB (外付けSSD)
+
+ちなみに、筆者はこのノートPCを普段はWindowsマシンとして使っています。Linuxを使いたい場合は、Fedora Linux 41をインストール済みの
+https://www.buffalo.jp/product/detail/ssd-pst1.0u3-ba.html[極小SSD]
+をUSBの口に指してそこからOSをブートしてLinuxマシンとして使っています。
+
+NOTE: 以後のインストール手順は、Fedora 41上で確認済みです。CoreOSやRHELでも同様の手順でインストールできるはずです。
+
+=== インストール手順
+
+[arabic]
+. まずインストールに必要なファイルを以下のサイトからダウンロードします。
+https://docs.redhat.com/ja/documentation/red_hat_openshift_local/2.43/html/getting_started_guide/index
+
+.OpenShift Localインストーラーのダウンロード
+image::./images/chap4_openshift_local_install.png[]
+
+* *++[++Download OpenShift Local++]++*
+ボタンを押してcrc-linux-amd64.tar.xzという名前のファイルをダウンロードします。
+* *++[++Download pull secret++]++* ボタンを押して *pull-secret.txt*
+という名前のテキストファイルをダウンロードします。
+
+[arabic, start=2]
+. ターミナルを開いて以下のコマンドを実行し、crcコマンドが使えるように準備します。
+
+[source,bash]
+----
+$ cd ~/Downloads
+$ tar xvf crc-linux-amd64.tar.xz
+$ mkdir -p ~/bin
+$ cp ~/Downloads/crc-linux-*-amd64/crc ~/bin
+$ export PATH=$PATH:$HOME/bin
+$ echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+$ source ~/.bashrc
+----
+
+crc versionコマンドを実行して、crcが使えることを確認しましょう。
+
+[source,bash]
+----
+$ crc version
+CRC version: 2.43.0+268795
+OpenShift version: 4.17.1
+MicroShift version: 4.17.1
+----
+
+[arabic, start=3]
+. *crc setup* コマンドを使ってインストールを開始します。インストールの後半で5GB以上のサイズのファイルをネットからダウンロードします。
+
+[source,bash]
+----
+$ crc setup
+CRC is constantly improving and we would like to know more about usage (more details at https://developers.redhat.com/article/tool-data-collection)
+Your preference can be changed manually if desired using 'crc config set consent-telemetry <yes/no>'
+Would you like to contribute anonymous usage statistics? [y/N]: y
+Thanks for helping us! You can disable telemetry with the command 'crc config set consent-telemetry no'.
+<略>
+INFO Downloading bundle: /home/student/.crc/cache/crc_libvirt_4.17.1_amd64.crcbundle... 
+5.04 GiB / 5.04 GiB [------------------------------------------------------] 100.00% 1.83 MiB/s
+INFO Uncompressing /home/student/.crc/cache/crc_libvirt_4.17.1_amd64.crcbundle 
+crc.qcow2:  18.27 GiB / 18.27 GiB [---------------------------------------------------] 100.00%
+oc:  158.70 MiB / 158.70 MiB [--------------------------------------------------------] 100.00%
+Your system is correctly setup for using CRC. Use 'crc start' to start the instance
+----

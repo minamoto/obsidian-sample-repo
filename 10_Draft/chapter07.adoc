@@ -1,0 +1,32 @@
+== CLIコマンドの使い方
+
+=== ocコマンドの準備
+
+*oc* コマンドは、OpenShiftクラスターにアクセスするCLIです。 +
+OpenShift Localでは、以下のコマンドでocコマンドが使えるようになります
+
+[source,bash]
+----
+$ crc oc-env
+export PATH="/home/student/.crc/bin/oc:$PATH"
+# Run this command to configure your shell:
+# eval $(crc oc-env)
+----
+
+このコマンドがやっていることは、ocコマンド~/.crc/bin/ocを一時的にPATHに通しているだけです。
+
+=== ocコマンドで管理者としてログイン
+
+*oc login* コマンドを使ってOpenShiftクラスターにkubeadminでログインします。kubeadminのパスワードはcrc startコマンドのログに出力されます。
+
+[TIP]
+====
+*crc console –credentials* コマンドを使えば、ocコマンドを使ったログイン方法を教えてくれます。 +
+$ crc console –credentials +
+To login as a regular user, run '`oc login -u developer -p developer
+https://api.crc.testing:6443/[https://api.crc.testing:6443]`'. +
+To login as an admin, run '`oc login -u kubeadmin -p XXXXXXXX +
+https://api.crc.testing:6443/[https://api.crc.testing:6443]`'
+====
+
+

@@ -1,0 +1,4 @@
+== おわりに
+
+OpenShift Localのインストール手順とよく使うコマンドを紹介しました。OpenShift Localは、開発者が使う環境というのが想定されてはいますが、kubeadminのアカウントが用意されているので、管理者がOpenShiftの学習用に使うのにも適していると思います。kubeadminでいろいろ試した結果、クラスターが壊れてしまったとしても、crc delete; crc setupをすればよいので気軽に実験ができますね。
+

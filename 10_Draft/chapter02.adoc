@@ -1,0 +1,9 @@
+== OpenShift Localとは
+
+Red Hat OpenShift Localは、無償で使うことができるシングルノードのOpenShiftです。開発者がデスクトップにインストールして開発やテスト用途に使うことが想定されています。この記事では、OpenShift Local 2.43を使ってOpenShiftをインストールします。詳細は以下のドキュメントを参照してください。
+
+https://docs.redhat.com/ja/documentation/red_hat_openshift_local/2.43/html/getting_started_guide/introducing[*第1章
+Red Hat OpenShift Local の紹介 ++|++ Red Hat Product Documentation*]
+
+OpenShift Localは、通常のOpenShift Container Platformよりも軽量になっているため起動時間が比較的早いです。OpenShift Localは、筆者のノートPC上では *約3分で起動* します（マシンスペックは後述）。OpenShiftの持ち運びができて、必要なときにサクッと起動できるので、デモや調査目的に気軽に使えてとても便利です。
+

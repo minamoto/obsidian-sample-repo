@@ -1,0 +1,9 @@
+== OpenShift Container Platformとの違い
+
+OpenShift Localは本番環境では使えませんし、アップグレードもできません。詳細は以下のドキュメントで確認してください。
+
+https://docs.redhat.com/ja/documentation/red_hat_openshift_local/2.43/html/getting_started_guide/differences_from_a_production_openshift_container_platform_installation[*1.2.
+実稼働環境の OpenShift Container Platform インストールとの相違点 ++|++
+Red Hat Product Documentation*]
+
+
