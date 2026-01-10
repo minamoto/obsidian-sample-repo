@@ -17,11 +17,22 @@ Windowsの場合はRuby Installerを使うのが簡単。
 
 ## asciidoctorのインストール
 
+**Windowsの場合**
+
 ```shell
 gem install asciidoctor
 gem install asciidoctor-pdf
 gem install asciidoctor-pdf-cjk
 gem install asciidoctor-epub3
+```
+
+**Linux/MacOSの場合**
+
+```shell
+sudo gem install asciidoctor
+sudo gem install asciidoctor-pdf
+sudo gem install asciidoctor-pdf-cjk
+sudo gem install asciidoctor-epub3
 ```
 
 ## asciidoctorの使い方
