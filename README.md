@@ -54,13 +54,13 @@ asciidoctor-pdf -a pdf-theme=default-with-font-fallbacks -a scripts=cjk test.ado
 
 # 2. ビルド方法
 
-## Windowsの場合
+**Windowsの場合**
 ```bash
 cd 10_Draft
 .\build.bat
 ```
 
-Linux/MacOSの場合
+**Linux/MacOSの場合**
 ```bash
 cd 10_Draft
 ./build.sh
